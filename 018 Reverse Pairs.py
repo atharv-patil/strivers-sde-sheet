@@ -23,8 +23,11 @@ def mergeSort(a):
         right = mergeSort(a[len(a) // 2:])
 
         i = 0
+        j = 0
         while i < len(left):
-            ans += bisect_left(right,left[i]/2)
+            while j<len(right) and left[i]/2>right[j]:
+                j += 1
+            ans += j
             i += 1
 
         new = []
