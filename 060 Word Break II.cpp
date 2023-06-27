@@ -18,27 +18,22 @@ bool check(int i,string s,string ss)
 }
 
 
-void f(int i,vector<string>&dict,string &s,vector<string>&ans,vector<string>&t)
+void f(int i,vector<string>&dict,string &s,vector<string>&ans,string &t)
 {
     int n=s.size();
     if (i==n)
     {
-        string a;
-        a += t[0];
-        for (int j=1;j<t.size();j++)
-        {
-            a+=" ";
-            a+=t[j];
-        }
-        ans.push_back(a);
+        ans.push_back(t);
+        return;
     }
 
     for (auto ii:dict)
     {
         if (!check(i,s,ii)) continue;
-        t.push_back(ii);
-        f(i+ii.size(),dict,s,ans,t);
-        t.pop_back();
+        string tt = t+" "+ii;
+        if (t=="")
+            tt = ii;
+        f(i+ii.size(),dict,s,ans,tt);
     }
 
     
@@ -46,7 +41,8 @@ void f(int i,vector<string>&dict,string &s,vector<string>&ans,vector<string>&t)
 
 vector<string> wordBreak(string &s, vector<string> &dictionary)
 {
-    vector<string>ans,t;
+    vector<string>ans;
+    string t;
     f(0,dictionary,s,ans,t);
     return ans;
 }
